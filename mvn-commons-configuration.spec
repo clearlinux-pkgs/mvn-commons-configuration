@@ -4,14 +4,17 @@
 #
 Name     : mvn-commons-configuration
 Version  : 1.6
-Release  : 1
+Release  : 2
 URL      : https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar
 Source0  : https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar
 Source1  : https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.pom
+Source2  : https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.7/commons-configuration-1.7.jar
+Source3  : https://repo1.maven.org/maven2/commons-configuration/commons-configuration/1.7/commons-configuration-1.7.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: mvn-commons-configuration-data = %{version}-%{release}
+Requires: mvn-commons-configuration-license = %{version}-%{release}
 
 %description
 No detailed description available
@@ -24,16 +27,33 @@ Group: Data
 data components for the mvn-commons-configuration package.
 
 
+%package license
+Summary: license components for the mvn-commons-configuration package.
+Group: Default
+
+%description license
+license components for the mvn-commons-configuration package.
+
+
 %prep
+%setup -q -n META-INF
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-commons-configuration
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-commons-configuration/LICENSE.txt
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6
-cp %{SOURCE0} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6
+cp %{SOURCE0} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.pom
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.7
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.7/commons-configuration-1.7.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.7
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.7/commons-configuration-1.7.pom
 
 
 %files
@@ -43,3 +63,9 @@ cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/commons-configuration/c
 %defattr(-,root,root,-)
 /usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar
 /usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.pom
+/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.7/commons-configuration-1.7.jar
+/usr/share/java/.m2/repository/commons-configuration/commons-configuration/1.7/commons-configuration-1.7.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-commons-configuration/LICENSE.txt
